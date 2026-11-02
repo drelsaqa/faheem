@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>فهيم – معلمك الذكي</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--h:250;--h2:160;
+--brand:hsl(var(--h) 68% 44%);--on-brand:#fff;--accent:hsl(var(--h2) 85% 58%);--on-accent:hsl(var(--h) 45% 12%);
+--bg:hsl(var(--h) 45% 97%);--surface:#fff;--ink:hsl(var(--h) 40% 12%);--mut:hsl(var(--h) 14% 40%);--line:hsl(var(--h) 28% 88%);--soft:hsl(var(--h) 80% 95%);--err:#B3261E;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-p="ocean"]{--h:205;--h2:32}
+:root[data-p="emerald"]{--h:160;--h2:12}
+:root[data-p="rose"]{--h:335;--h2:48}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+--brand:hsl(var(--h) 85% 70%);--on-brand:hsl(var(--h) 50% 10%);--accent:hsl(var(--h2) 85% 62%);
+--bg:hsl(var(--h) 35% 8%);--surface:hsl(var(--h) 30% 12%);--ink:hsl(var(--h) 25% 94%);--mut:hsl(var(--h) 15% 70%);--line:hsl(var(--h) 22% 22%);--soft:hsl(var(--h) 30% 16%);--err:#FF8A80}}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans Arabic',Tahoma,'Segoe UI',sans-serif;line-height:1.8;min-height:100vh;transition:background .3s}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.glow{position:fixed;inset:-20% -10% auto;height:70vh;z-index:-1;pointer-events:none;background:radial-gradient(40% 50% at 80% 20%,color-mix(in srgb,var(--brand) 22%,transparent),transparent 70%),radial-gradient(35% 45% at 15% 40%,color-mix(in srgb,var(--accent) 20%,transparent),transparent 70%)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px 48px}
+nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.logo{display:flex;align-items:center;gap:12px;line-height:1.1}
+.logo svg{width:60px;height:60px;flex:none;filter:drop-shadow(0 8px 14px color-mix(in srgb,var(--brand) 40%,transparent))}
+.logo b{display:block;font-size:2.4rem;font-weight:700;letter-spacing:-.02em}
+.logo small{display:block;direction:ltr;text-align:start;font-size:1rem;font-weight:600;letter-spacing:.2em;color:var(--brand)}
+@media(max-width:520px){.logo svg{width:48px;height:48px}.logo b{font-size:1.9rem}.logo small{font-size:.8rem}.pal span{display:none}}
+.pal{display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-size:.85rem;color:var(--mut)}
+.pal button{width:22px;height:22px;border-radius:50%;border:2px solid var(--surface);cursor:pointer;padding:0;box-shadow:0 0 0 1.5px var(--line)}
+.pal button[aria-pressed="true"]{box-shadow:0 0 0 2.5px var(--ink)}
+.pal button:focus-visible,.btn:focus-visible,input:focus-visible,select:focus-visible,.link:focus-visible,.sub:focus-visible{outline:3px solid var(--brand);outline-offset:3px}
+.stepper{display:flex;align-items:center;gap:10px;margin:6px 0 30px;color:var(--mut)}
+.stepper b{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;border:2px solid var(--line);font-weight:600;font-size:.9rem;transition:.3s}
+.stepper .on b{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.stepper hr{flex:1;border:0;height:2px;background:var(--line);margin:0;max-width:60px}
+.view{display:none}.view.active{display:block;animation:in .45s ease}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.hero{display:grid;gap:36px;align-items:center}
+@media(min-width:800px){.hero{grid-template-columns:1.15fr 1fr;gap:56px;padding-top:16px}}
+h1{font-size:clamp(2.8rem,9vw,5.2rem);line-height:1.3;margin:0 0 16px;font-weight:700;letter-spacing:-.01em}
+h2{font-size:1.7rem;margin:0 0 6px;font-weight:700}
+.h1en{display:block;direction:ltr;text-align:start;font-size:.36em;font-weight:600;letter-spacing:.14em;color:var(--brand);margin-top:6px}
+.lead{font-size:1.1rem;color:var(--mut);margin:0 0 26px;max-width:32em}
+.btn{display:inline-block;border:0;cursor:pointer;font:inherit;font-weight:600;font-size:1.05rem;background:var(--brand);color:var(--on-brand);padding:13px 34px;border-radius:999px;text-decoration:none;box-shadow:0 8px 22px -8px var(--brand);transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px -8px var(--brand)}
+.btn[disabled]{opacity:.7;cursor:wait}
+.chat{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:22px;display:grid;gap:12px;box-shadow:0 30px 60px -30px color-mix(in srgb,var(--brand) 45%,transparent)}
+.chat-h{display:flex;align-items:center;gap:10px;padding-bottom:12px;border-bottom:1px solid var(--line);font-weight:600}
+.chat-h i{width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.b{max-width:88%;padding:10px 16px;border-radius:20px;font-size:.98rem}
+.b.me{background:var(--brand);color:var(--on-brand);justify-self:start;border-end-start-radius:6px}
+.b.ai{background:var(--soft);justify-self:end;border-end-end-radius:6px}
+.en{direction:ltr;unicode-bidi:isolate;font-weight:600}
+.typing{display:flex;gap:5px;padding:14px 18px}
+.typing span{width:8px;height:8px;border-radius:50%;background:var(--mut);animation:bl 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+@keyframes bl{0%,60%,100%{opacity:.25}30%{opacity:1}}
+.feat{display:grid;gap:14px;margin-top:44px}
+@media(min-width:700px){.feat{grid-template-columns:repeat(3,1fr)}}
+.feat div{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:18px 20px}
+.feat b{display:block;font-size:1.1rem;margin-bottom:2px}.feat span{color:var(--mut);font-size:.96rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:28px;max-width:580px;margin:0 auto;box-shadow:0 30px 60px -36px color-mix(in srgb,var(--brand) 40%,transparent)}
+.f{margin-top:16px}
+label{display:block;font-weight:600;margin-bottom:4px;font-size:.95rem}
+input,select{width:100%;font:inherit;padding:12px 16px;border-radius:14px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);transition:border-color .2s}
+input:focus,select:focus{border-color:var(--brand)}
+select:disabled{opacity:.8}
+input.ltr{direction:ltr;text-align:right}
+.row{display:grid;gap:0 14px}@media(min-width:520px){.row{grid-template-columns:1fr 1fr}}
+.err{color:var(--err);font-size:.88rem;min-height:1.3em}
+input.bad{border-color:var(--err)}
+.actions{display:flex;gap:16px;align-items:center;margin-top:22px;flex-wrap:wrap}
+.link{background:none;border:0;font:inherit;color:var(--mut);cursor:pointer;text-decoration:underline}
+.done{text-align:center;padding:36px 20px}
+.card.done{max-width:820px}
+.tick{width:88px;height:88px;border-radius:50%;background:var(--accent);margin:0 auto 14px;display:grid;place-items:center}
+.tick svg{width:46px;height:46px;stroke:var(--on-accent);fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:60;stroke-dashoffset:60;animation:d .6s .25s forwards}
+@keyframes d{to{stroke-dashoffset:0}}
+.done p{color:var(--mut);margin:4px 0 0}
+.pick{margin:26px 0 0;font-size:1.3rem}
+.subs{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px;margin-top:16px;text-align:start}
+.sub{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:16px;border-radius:22px;background:var(--bg);border:1.5px solid var(--line);color:var(--ink);text-decoration:none;font-weight:600;font-size:1.05rem;transition:transform .15s,border-color .15s,box-shadow .15s}
+.sub .ic{width:46px;height:46px;border-radius:14px;background:var(--soft);display:grid;place-items:center;font-size:1.5rem;margin-bottom:8px}
+.sub small{direction:ltr;text-align:start;color:var(--mut);font-weight:500;font-size:.8rem}
+.sub em{font-style:normal;font-size:.78rem;color:var(--brand);margin-top:4px;font-weight:600}
+a.sub:hover{transform:translateY(-4px);border-color:var(--brand);box-shadow:0 14px 28px -16px var(--brand)}
+
+@media (prefers-reduced-motion:reduce){.view.active,.typing span,.tick svg{animation:none}.tick svg{stroke-dashoffset:0}.btn,.sub{transition:none}}
+.sub{align-items:flex-start}.sub[hidden]{display:none}
+.sub:hover{transform:translateY(-3px);border-color:var(--brand);box-shadow:0 14px 28px -16px var(--brand)}
+.subk{font-size:.8rem;color:var(--mut);font-weight:500}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.act{font-size:.85rem;font-weight:600;padding:6px 12px;border-radius:999px;border:1.5px solid var(--brand);color:var(--brand);text-decoration:none;background:transparent}
+a.act:hover{background:var(--brand);color:var(--on-brand)}
+.act.off{border-color:var(--line);color:var(--mut);font-weight:500}
+.act:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.ctop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}.ctop h2{margin:0;font-size:1.4rem}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.chip{font:inherit;font-size:.85rem;font-weight:600;padding:6px 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.chip:hover{border-color:var(--brand);color:var(--brand)}
+.msgs{display:flex;flex-direction:column;gap:10px;min-height:220px;max-height:55vh;overflow-y:auto;padding:4px 2px}
+.msgs .b{white-space:pre-wrap;line-height:1.8}
+.cform{display:flex;gap:10px;margin-top:12px}.cform .btn{padding:10px 24px}
+</style>
+</head>
+<body>
+<div class="glow" aria-hidden="true"></div>
+<div class="wrap">
+  <nav>
+    <div class="logo" aria-label="فهيم – Faheem">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <rect width="48" height="48" rx="14" fill="var(--brand)"/>
+        <path d="M14 10h20a5 5 0 0 1 5 5v12a5 5 0 0 1-5 5H24l-7 6v-6h-3a5 5 0 0 1-5-5V15a5 5 0 0 1 5-5z" fill="var(--on-brand)"/>
+        <path d="M13 16.5q5-2 10 1.5v10q-5-3.5-10-1.5z" fill="var(--brand)"/>
+        <path d="M35 16.5q-5-2-10 1.5v10q5-3.5 10-1.5z" fill="var(--brand)" opacity=".8"/>
+        <path d="M39 3l1.5 3.8L44.300 8.300 40.500 9.800 39 13.600 37.500 9.800 33.700 8.300 37.500 6.800z" fill="var(--accent)"/>
+      </svg>
+      <div><b>فهيم</b><small>FAHEEM</small></div>
+    </div>
+    <div class="pal" role="group" aria-label="اختر لوحة الألوان">
+      <span>الألوان</span>
+      <button type="button" data-p="indigo" aria-label="بنفسجي ونعناعي" style="background:linear-gradient(135deg,hsl(250 68% 50%) 50%,hsl(160 85% 58%) 50%)"></button>
+      <button type="button" data-p="ocean" aria-label="أزرق وبرتقالي" style="background:linear-gradient(135deg,hsl(205 68% 44%) 50%,hsl(32 85% 58%) 50%)"></button>
+      <button type="button" data-p="emerald" aria-label="أخضر ومرجاني" style="background:linear-gradient(135deg,hsl(160 68% 36%) 50%,hsl(12 85% 60%) 50%)"></button>
+      <button type="button" data-p="rose" aria-label="وردي وكهرماني" style="background:linear-gradient(135deg,hsl(335 68% 48%) 50%,hsl(48 85% 56%) 50%)"></button>
+    </div>
+  </nav>
+
+  <div class="stepper" aria-hidden="true">
+    <span class="on"><b>1</b></span><hr><span><b>2</b></span><hr><span><b>3</b></span>
+  </div>
+
+  <main>
+  <section id="v1" class="view active" aria-labelledby="t1">
+    <div class="hero">
+      <div>
+        <h1 id="t1">فهيم بكالوريا<span class="h1en">FAHEEM BACCALAUREATE</span></h1>
+        <p class="lead">معلمك الذكي لمواد أولى بكالوريا. اختر المادة، اسأل، تدرّب، وصحّح أخطاءك خطوة بخطوة وبالعربية.</p>
+        <button class="btn" data-go="2">ابدأ الآن</button>
+      </div>
+      <div class="chat" aria-label="مثال على محادثة مع فهيم">
+        <div class="chat-h"><i></i> فهيم</div>
+        <div class="b me">ما الفرق بين <span class="en">make</span> و <span class="en">do</span>؟</div>
+        <div class="b ai">نقول <span class="en">make a cake</span> لأننا نصنع شيئًا جديدًا، ونقول <span class="en">do homework</span> لأنه عمل نؤديه.</div>
+        <div class="b me">جرّبني بجملة!</div>
+        <div class="b ai typing" aria-hidden="true"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <div class="feat">
+      <div><b>شرح بالعربية</b><span>يبسّط القواعد والمفردات بلغة تفهمها.</span></div>
+      <div><b>تدريب مستمر</b><span>أسئلة وتمارين على قدر مستواك.</span></div>
+      <div><b>تصحيح فوري</b><span>يوضح الخطأ ويعطيك الصيغة الصحيحة.</span></div>
+    </div>
+  </section>
+
+  <section id="v2" class="view" aria-labelledby="t2">
+    <div class="card">
+      <h2 id="t2">أنشئ حسابك</h2>
+      <p style="color:var(--mut);margin:0">أدخل بياناتك لتبدأ مع فهيم.</p>
+      <form id="form" novalidate>
+        <div class="f"><label for="name">الاسم الكامل</label><input id="name" autocomplete="name" required><div class="err" data-for="name"></div></div>
+        <div class="row">
+          <div class="f"><label for="age">السن</label><input id="age" class="ltr" type="number" inputmode="numeric" min="12" max="20" required><div class="err" data-for="age"></div></div>
+          <div class="f"><label for="grade">الصف الدراسي</label><select id="grade" disabled><option>أولى ثانوي</option></select></div>
+        </div>
+        <div class="row">
+          <div class="f"><label for="gov">المحافظة</label><select id="gov" disabled><option>القاهرة</option></select></div>
+          <div class="f"><label for="school">اسم المدرسة</label><input id="school" required><div class="err" data-for="school"></div></div>
+        </div>
+        <div class="f"><label for="email">البريد الإلكتروني</label><input id="email" class="ltr" type="email" autocomplete="email" required><div class="err" data-for="email"></div></div>
+        <div class="f"><label style="display:flex;gap:10px;align-items:flex-start;font-weight:400"><input id="consent" type="checkbox" style="width:22px;height:22px;margin-top:6px;flex:none;accent-color:var(--brand)"><span>أوافق على استخدام بياناتي لأغراض البحث التعليمي فقط، وعدم نشرها للغير.</span></label><div class="err" data-for="consent"></div></div>
+        <div class="err" id="formerr" role="alert"></div>
+        <div class="actions"><button class="btn" type="submit">إنشاء الحساب</button><button type="button" class="link" data-go="1">رجوع</button></div>
+      </form>
+    </div>
+  </section>
+
+  <section id="v3" class="view" aria-labelledby="t3">
+    <div class="card done">
+      <div class="tick"><svg viewBox="0 0 52 52"><path d="M12 27l10 10 18-20"/></svg></div>
+      <h2 id="t3">تم التسجيل بنجاح</h2>
+      <p>أهلًا <b id="who"></b>، حسابك جاهز. اختر المادة لتبدأ مع فهيم.</p>
+      <h3 class="pick">اختر المادة</h3>
+      <input id="q" type="search" placeholder="ابحث عن مادة... مثل: فيزياء أو History" aria-label="ابحث عن مادة" style="margin-top:14px">
+      <div class="subs" id="subs"></div>
+      <p id="none" hidden>لا توجد مادة بهذا الاسم.</p>
+    </div>
+  </section>
+  <section id="v4" class="view" aria-labelledby="t4">
+    <div class="card" style="max-width:760px">
+      <div class="ctop"><button type="button" class="link" id="chatBack">← المواد</button><h2 id="t4">فهيم</h2></div>
+      <div class="chips" id="chips"></div>
+      <div class="msgs" id="msgs" aria-live="polite"></div>
+      <div class="err" id="cerr" role="alert"></div>
+      <form id="cform" class="cform"><input id="cin" placeholder="اكتب سؤالك هنا..." autocomplete="off" maxlength="600"><button class="btn" type="submit" id="csend">إرسال</button></form>
+    </div>
+  </section>
+  </main>
+</div>
+<script>
+var FAHEEM_URL = "https://gemini.google.com/gem/1vy4mcdLzTdJ1mrhN3oVrWZARPxjdgnGD?usp=sharing";
+var SHEET_URL = "https://script.google.com/macros/s/AKfycbyzp28JDpCsSsJHQvEk7FkFbneXlX21xQ_W2qzI_IvX_EOv0rmvTAD7xsVe0XyT89Erzw/exec";
+/* book = رابط الكتاب على Drive (يلزم ضبط المشاركة: أي شخص لديه الرابط). ask = رابط المساعد الذكي للمادة. الفارغ يظهر «قريبًا» */
+function drive(id){return "https://drive.google.com/file/d/"+id+"/view?usp=sharing"}
+var SUBJECTS=[
+ {ic:"✍️",ar:"اللغة العربية",en:"Arabic",kw:"",book:drive("1USUq6MeFzuKn3eZd8kL1MjppnyFb2h9W"),key:"ar"},
+ {ic:"🔤",ar:"اللغة الإنجليزية",en:"English",kw:"",book:drive("1xjVPImHFXYuHOcHyXOf_dD0C6ccO8S05"),key:"en"},
+ {ic:"🏛️",ar:"التاريخ",en:"History",kw:"",book:drive("1nMfynQOL8DfnTnJq_qNL3wIikN--p50y"),key:"hist"},
+ {ic:"🌍",ar:"الجغرافيا",en:"Geography",kw:"",book:"",key:""},
+ {ic:"🔬",ar:"العلوم المتكاملة",en:"Integrated Science",kw:"فيزياء كيمياء أحياء physics chemistry biology",sub:"فيزياء · كيمياء · أحياء",book:drive("1I6hdoTIuQRPdbL9WGjCL293b_77qrmjh"),key:"sci"},
+ {ic:"💡",ar:"الفلسفة والمنطق",en:"Philosophy & Logic",kw:"",book:drive("1fDSsIzlHbkLHtNnsPpJ2NNg1vQ1VUw7n"),key:"phil"},
+ {ic:"💻",ar:"تكنولوجيا المعلومات والاتصالات",en:"ICT",kw:"حاسب",book:drive("1ycHh3hkznx7fEb9cEPNH4e11WwVTyBn6"),key:"ict"}
+];
+var box=document.getElementById('subs'), q=document.getElementById('q'), none=document.getElementById('none');
+function act(href,label,ic){
+  return href?'<a class="act" href="'+href+'" target="_blank" rel="noopener">'+ic+' '+label+'</a>':'<span class="act off">'+label+' · قريبًا</span>';
+}
+SUBJECTS.forEach(function(x){
+  var d=document.createElement('div'); d.className='sub';
+  d.dataset.s=(x.ar+' '+x.en+' '+x.kw).toLowerCase();
+  d.innerHTML='<span class="ic" aria-hidden="true">'+x.ic+'</span>'+x.ar+'<small>'+x.en+'</small>'+(x.sub?'<span class="subk">'+x.sub+'</span>':'')+
+    '<div class="acts">'+act(x.book,'الكتاب','📖')+(x.key?'<button type="button" class="act" data-k="'+x.key+'">💬 اسأل فهيم</button>':'<span class="act off">اسأل فهيم · قريبًا</span>')+'</div>';
+  box.appendChild(d);
+});
+q.addEventListener('input',function(){
+  var v=q.value.trim().toLowerCase(),n=0;
+  box.querySelectorAll('.sub').forEach(function(c){var m=!v||c.dataset.s.indexOf(v)>-1;c.hidden=!m;if(m)n++});
+  none.hidden=n>0;
+});
+var root=document.documentElement, pbtn=document.querySelectorAll('.pal button');
+function setPal(p){
+  root.setAttribute('data-p',p);
+  pbtn.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.p===p))});
+  try{localStorage.setItem('faheem-pal',p)}catch(e){}
+}
+var saved='indigo'; try{saved=localStorage.getItem('faheem-pal')||'indigo'}catch(e){}
+setPal(saved);
+pbtn.forEach(function(b){b.addEventListener('click',function(){setPal(b.dataset.p)})});
+var views=[1,2,3,4].map(function(n){return document.getElementById('v'+n)});
+var steps=document.querySelectorAll('.stepper span');
+function show(n){
+  views.forEach(function(v,i){v.classList.toggle('active',i===n-1)});
+  steps.forEach(function(s,i){s.classList.toggle('on',i<Math.min(n,3))});
+  window.scrollTo({top:0});
+  var h=views[n-1].querySelector('h1,h2'); if(h){h.setAttribute('tabindex','-1');h.focus({preventScroll:true})}
+}
+document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){show(+b.dataset.go)})});
+function setErr(id,msg){
+  document.querySelector('[data-for="'+id+'"]').textContent=msg;
+  document.getElementById(id).classList.toggle('bad',!!msg);
+}
+document.getElementById('form').addEventListener('submit',function(e){
+  e.preventDefault();
+  var name=document.getElementById('name').value.trim(),
+      age=+document.getElementById('age').value,
+      school=document.getElementById('school').value.trim(),
+      email=document.getElementById('email').value.trim(), ok=true, first=null;
+  function chk(id,bad,msg){setErr(id,bad?msg:'');if(bad){ok=false;first=first||id}}
+  chk('name',name.split(/\s+/).length<2,'اكتب اسمك الكامل (الاسم الأول والثاني على الأقل).');
+  chk('age',!(age>=12&&age<=20),'اكتب سنًا صحيحًا بين 12 و 20.');
+  chk('school',school.length<3,'اكتب اسم المدرسة.');
+  chk('email',!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),'اكتب بريدًا إلكترونيًا صحيحًا مثل name@example.com');
+  chk('consent',!document.getElementById('consent').checked,'يجب الموافقة للمتابعة.');
+  if(!ok){document.getElementById(first).focus();return}
+  var btn=document.querySelector('#form .btn'), fe=document.getElementById('formerr');
+  function next(){document.getElementById('who').textContent=name.split(/\s+/)[0];show(3)}
+  if(!SHEET_URL){next();return}
+  var data={name:name,age:age,grade:'أولى ثانوي',governorate:'القاهرة',school:school,email:email};
+  fe.textContent='';btn.disabled=true;btn.textContent='جارٍ الحفظ...';
+  var ctl=new AbortController(),t=setTimeout(function(){ctl.abort()},12000);
+  fetch(SHEET_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(data),signal:ctl.signal})
+    .then(function(){clearTimeout(t);btn.disabled=false;btn.textContent='إنشاء الحساب';next()})
+    .catch(function(){clearTimeout(t);btn.disabled=false;btn.textContent='إنشاء الحساب';fe.textContent='تعذّر حفظ بياناتك. تأكد من اتصالك بالإنترنت ثم حاول مرة أخرى.'});
+});
+
+/* المحادثة مع فهيم لكل مادة */
+var cur=null, chats={}, busy=false;
+var msgs=document.getElementById('msgs'), cin=document.getElementById('cin'), cerr=document.getElementById('cerr');
+function bubble(role,text){var d=document.createElement('div');d.className='b '+(role==='user'?'me':'ai');d.textContent=text;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d}
+function openChat(key){
+  cur=SUBJECTS.filter(function(x){return x.key===key})[0]; if(!cur)return;
+  document.getElementById('t4').textContent='فهيم · '+cur.ar;
+  chats[key]=chats[key]||[]; msgs.innerHTML=''; cerr.textContent='';
+  if(!chats[key].length){bubble('assistant','أهلًا! أنا فهيم، معلمك في '+cur.ar+'. اختر من الأزرار أعلاه أو اكتب سؤالك.')}
+  else chats[key].forEach(function(m){bubble(m.role,m.content)});
+  var c=document.getElementById('chips'); c.innerHTML='';
+  [['شرح درس','اشرح لي درسًا من '+cur.ar+' وابدأ بالأسهل'],['اختبرني','اختبرني بسؤال واحد في '+cur.ar],['مراجعة سريعة','اسألني ثلاثة أسئلة قصيرة للمراجعة، واحدًا تلو الآخر'],['لخّص لي','لخّص لي أهم نقاط درس '+cur.ar+' الذي سأذاكره']].forEach(function(p){
+    var b=document.createElement('button');b.type='button';b.className='chip';b.textContent=p[0];b.addEventListener('click',function(){send(p[1])});c.appendChild(b)});
+  show(4); cin.focus({preventScroll:true});
+}
+box.addEventListener('click',function(e){var b=e.target.closest('[data-k]');if(b)openChat(b.dataset.k)});
+document.getElementById('chatBack').addEventListener('click',function(){show(3)});
+var ERR={limit:'وصل المساعد للحد اليومي. حاول غدًا من فضلك.',nokey:'المساعد غير مفعّل حاليًا.',api:'المساعد مشغول الآن. حاول بعد قليل.',subject:'المادة غير متاحة.',bad:'تعذّر فهم الرسالة.'};
+function send(text){
+  text=(text||'').trim(); if(busy||!text||!cur)return;
+  cerr.textContent='';
+  if(!SHEET_URL){cerr.textContent='المساعد الذكي يعمل في النسخة المرفوعة على استضافة والمربوطة بالخادم، وليس في هذه المعاينة.';return}
+  var h=chats[cur.key]; bubble('user',text); h.push({role:'user',content:text}); cin.value='';
+  busy=true; document.getElementById('csend').disabled=true;
+  var wait=bubble('assistant','فهيم يكتب...');
+  var ctl=new AbortController(),t=setTimeout(function(){ctl.abort()},60000);
+  fetch(SHEET_URL,{method:'POST',body:JSON.stringify({type:'chat',subject:cur.key,messages:h}),signal:ctl.signal})
+    .then(function(r){return r.json()})
+    .then(function(j){
+      if(j&&j.ok){wait.textContent=j.text;h.push({role:'assistant',content:j.text})}
+      else{wait.remove();h.pop();cerr.textContent=ERR[j&&j.error]||'حدث خطأ. حاول مرة أخرى.'}
+    })
+    .catch(function(){wait.remove();h.pop();cerr.textContent='تعذّر الاتصال. تأكد من الإنترنت وحاول مرة أخرى.'})
+    .then(function(){clearTimeout(t);busy=false;document.getElementById('csend').disabled=false;msgs.scrollTop=msgs.scrollHeight});
+}
+document.getElementById('cform').addEventListener('submit',function(e){e.preventDefault();send(cin.value)});
+</script>
+</body>
+</html>
